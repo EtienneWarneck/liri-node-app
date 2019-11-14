@@ -1,21 +1,21 @@
 require("dotenv").config();
 require('fs');
-var keys = require("./keys");
+var keys = require("./keys"); //this is loaded
 var Spotify = require('node-spotify-api'); //
 var spotify = new Spotify(keys.spotify);
 var Axios = require('axios'); //
 
-//SPOTIFY-------------------------------------
-var user_command = process.argv[2]; 
-var user_input = process.argv[3]; 
+var user_command = process.argv[2];
+var user_input = process.argv[3];
 
 switch (user_command) {
-    case 'spotify_this': spotify_this();
+    case 'spotify-this': spotify_this();
         break;
-    case 'movie_this': movie_this();
+    case 'movie-this': movie_this();
         break;
 }
 
+//SPOTIFY-------------------------------------
 function spotify_this() {
     spotify.search({ type: 'track', query: user_input, limit: 1 },
         function (err, data) {
@@ -30,25 +30,21 @@ function spotify_this() {
 };
 
 // //AXIOS for OMDb -------------------------------------
-// * Title of the movie.
-//   * Year the movie came out.
-//   * IMDB Rating of the movie.
-//   * Rotten Tomatoes Rating of the movie.
-//   * Country where the movie was produced.
-//   * Language of the movie.
-//   * Plot of the movie.
-//   * Actors in the movie.
-
 function movie_this() {
-    Axios.get("http://www.omdbapi.com/?i=tt3896198" + user_input + "&apikey=dbac59f0")
+    Axios.get("http://www.omdbapi.com/?t=" + user_input + "&apikey=dbac59f0")
         .then(function (response) {
-            console.log(response.data.Released);
+            console.log(response.data.Title);//   * Title of the movie.
+            console.log(response.data.Year);//   * Year the movie came out.
+            console.log(response.data.imdbRating);//   * IMDB Rating of the movie.
+            console.log(response.data.Ratings[1].Value);//   * Rotten Tomatoes Rating of the movie.
+            console.log(response.data.Country);//   * Country where the movie was produced.
+            console.log(response.data.Language);//   * Language of the movie.
+            console.log(response.data.Plot);//   * Plot of the movie.
+            console.log(response.data.Actors);//   * Actors in the movie.
         })
         .catch(function (error) {
             if (error.response) {
-                  console.log(error.response.data);
-                  console.log(error.response.status);
-                  console.log(error.response.headers);
+                console.log(error.response.data);
             } else if (error.request) {
                 console.log(error.request);
             } else {
