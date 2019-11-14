@@ -1,12 +1,26 @@
 {
   "name": "8.liri",
   "version": "1.0.0",
-  "description": "",
+  "description": "1.Clearly state the problem the app is trying to solve (i.e. what is it doing and why)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EtienneWarneck/liri-node-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EtienneWarneck/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/EtienneWarneck/liri-node-app#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bandsintown": "^1.0.1",
+    "node-spotify-api": "^1.1.1",
+    "omdb": "^0.8.0"
+  }
 }
