@@ -14,19 +14,19 @@ var user_input = process.argv.slice(3).join(" ");
 
 
 switch (user_command) {
-    case 'spotify-this': spotify_this();
+    case 'spotify': spotify_this();
         break;
-    case 'movie-this': movie_this();
+    case 'movie': movie_this();
         break;
-    case 'concert-this': concert_this();
+    case 'concert': concert_this();
         break;
-    case 'do-what-it-says': do_what_it_says();
+    case 'do': do_what_it_says();
         break;
     default: "Write spotify_this, movie_this, concert_this or do_what_it_says"
 };
 
 
-//SPOTIFY----------------------------------------------
+//SPOTIFY
 function spotify_this() {
     spotify.search({ type: 'track', query: user_input, limit: 1 },
         function (err, data) {
@@ -37,10 +37,16 @@ function spotify_this() {
             console.log(data.tracks.items[0].artists[0].name);//Band Name
             console.log(data.tracks.items[0].name);//Song name
             console.log(data.tracks.items[0].album.name);//Album name
+
+            var spotify_append = "Appending song from SPOTIFY: " + "\""  + data.tracks.items[0].name + "\"" + "\r\n";
+
+            fs.appendFile('log.txt', spotify_append, function (err) {
+                if (err) throw err;
+            });
         });
 };
 
-//AXIOS for OMDb -------------------------------------
+//OMDB
 function movie_this() {
     Axios
         .get("http://www.omdbapi.com/?t=" + user_input + "&apikey=dbac59f0")
@@ -48,52 +54,50 @@ function movie_this() {
             console.log(response.data.Title);//   * Title of the movie.
             console.log(response.data.Year);//   * Year the movie came out.
             console.log(response.data.imdbRating);//   * IMDB Rating of the movie.
-            console.log(response.data.Ratings[1].Value);//   * Rotten Tomatoes Rating of the movie.
+            // console.log(response.data.Ratings[1].Value);//   * Rotten Tomatoes Rating of the movie.
             console.log(response.data.Country);//   * Country where the movie was produced.
             console.log(response.data.Language);//   * Language of the movie.
             console.log(response.data.Plot);//   * Plot of the movie.
             console.log(response.data.Actors);//   * Actors in the movie.
-        })
-        .catch(function (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else if (error.request) {
-                console.log(error.request);
-            } else {
-                console.log("Error", error.message);
-            }
-            console.log(error.config);
+
+            var movie_append = "Appending Movie from OMDb: " + response.data.Title + "\r\n";
+
+            fs.appendFile('log.txt', movie_append, function (err) {
+                if (err) throw err;
+            });
         });
 };
 
-//BANDS IN TOWN ------------------------------
+//BANDS IN TOWN 
 function concert_this() {
     Axios.get("https://rest.bandsintown.com/artists/" + user_input + "/events?app_id=codingbootcamp")
         .then(function (response) {
-            console.log("Name of the artist: " + response.data[0].artist.name); 
-            console.log("Name of the venue: " + response.data[0].venue.name); 
+            console.log("Name of the artist: " + response.data[0].artist.name);
+            console.log("Name of the venue: " + response.data[0].venue.name);
             console.log("Location of the venue: " + response.data[0].venue.city);
             console.log("Coutry of the venue: " + response.data[0].venue.country);
             // console.log("Date of the event: " + moment(response.data[0].datetime).format("L"));
+
+            var concert_append = "Appending Artist's name from BANDSINTOWN: " + response.data[0].artist.name + "\r\n";
+
+            fs.appendFile('log.txt', concert_append, function (err) {
+                if (err) throw err;
+                // console.log(response);
+            });
         });
 };
 
 //DO WHAT IT SAYS
-// function do_what_it_says() {
-//     fs.readFile("random.txt", "utf8", function (error, data) {
+function do_what_it_says() {
+    fs.readFile("random.txt", "utf8", function (error, data) {
 
-//         // If the code experiences any errors it will log the error to the console.
-//         if (error) {
-//             console.log(error);
-//         } else {
-//             console.log(data);
-//         };
-//         // // Then split it by commas (to make it more readable)
-//         // var dataArr = data.split(",");
-
-//         // // We will then re-display the content as an array for later use.
-//         // console.log(dataArr);
-//     });
-// };
+        // If the code experiences any errors it will log the error to the console.
+        if (error) {
+           return console.log(error);
+        } else {
+            console.log(data);
+        };   
+    });  
+};
 
 
