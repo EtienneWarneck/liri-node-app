@@ -1,13 +1,17 @@
-require("dotenv").config();
-var fs = require('fs');
-var keys = require("./keys"); //this is loaded
+require("dotenv").config(); //Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env.
+var fs = require('fs'); // require is a core node.js method to include the File System module (). fs is a module to handle the file system. 
+var keys = require("./keys"); // ./ is a relative module identifier looked for in the current directory. 
+// The resultant pathname is is interpreted relative to the location of the file being executed.
 var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
-var Axios = require('axios'); //for OMDB
-// var bandsintown = require('bandsintown')(codingbootcamp);
+var Axios = require('axios');
+
+// var Bandsintown = require('bandsintown');
+// var bandsintown = new Bandsintown(keys.bandsintown);
 
 var user_command = process.argv[2];
-var user_input = process.argv[3];
+var user_input = process.argv.slice(3).join(" ");
+
 
 switch (user_command) {
     case 'spotify-this': spotify_this();
@@ -19,7 +23,8 @@ switch (user_command) {
     case 'do-what-it-says': do_what_it_says();
         break;
     default: "Write spotify_this, movie_this, concert_this or do_what_it_says"
-}
+};
+
 
 //SPOTIFY----------------------------------------------
 function spotify_this() {
@@ -62,19 +67,16 @@ function movie_this() {
 };
 
 //BANDS IN TOWN ------------------------------
-// Name of the venue
-// Venue location
-// Date of the Event (use moment to format this as "MM/DD/YYYY")
-// "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"
-
-// function concert_this() {
-//     Axios
-//         .getArtist("https://rest.bandsintown.com/artists/" + user_input + "/events?app_id=codingbootcamp")
-//         // .getArtistEventList(user_input)
-//         .then(function (events) {
-//             console.log(events.artistName)
-//         })
-// };
+function concert_this() {
+    Axios.get("https://rest.bandsintown.com/artists/" + user_input + "/events?app_id=codingbootcamp")
+        .then(function (response) {
+            console.log("Name of the artist: " + response.data[0].artist.name); 
+            console.log("Name of the venue: " + response.data[0].venue.name); 
+            console.log("Location of the venue: " + response.data[0].venue.city);
+            console.log("Coutry of the venue: " + response.data[0].venue.country);
+            // console.log("Date of the event: " + moment(response.data[0].datetime).format("L"));
+        });
+};
 
 //DO WHAT IT SAYS
 // function do_what_it_says() {
