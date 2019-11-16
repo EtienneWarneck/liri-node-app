@@ -12,23 +12,25 @@ var Axios = require('axios');
 var user_command = process.argv[2];
 var user_input = process.argv.slice(3).join(" ");
 
-
-switch (user_command) {
-    case 'spotify': spotify_this();
-        break;
-    case 'movie': movie_this();
-        break;
-    case 'concert': concert_this();
-        break;
-    case 'do': do_what_it_says();
-        break;
-    default: "Write spotify_this, movie_this, concert_this or do_what_it_says"
+function callAPI(command, input) {
+    switch (command) {
+        case 'spotify': spotify_this(input);
+            break;
+        case 'movie': movie_this(input);
+            break;
+        case 'concert': concert_this(input);
+            break;
+        case 'do': do_what_it_says();
+            break;
+        default: "Write spotify_this, movie_this, concert_this or do_what_it_says"
+    };
 };
 
+callAPI(user_command, user_input);
 
 //SPOTIFY
-function spotify_this() {
-    spotify.search({ type: 'track', query: user_input, limit: 1 },
+function spotify_this(user_spotify) {
+    spotify.search({ type: 'track', query: user_spotify, limit: 1 },
         function (err, data) {
             if (err) {
                 return console.log('Error occurred: ' + err);
@@ -38,7 +40,7 @@ function spotify_this() {
             console.log(data.tracks.items[0].name);//Song name
             console.log(data.tracks.items[0].album.name);//Album name
 
-            var spotify_append = "Appending song from SPOTIFY: " + "\""  + data.tracks.items[0].name + "\"" + "\r\n";
+            var spotify_append = "Appending song from SPOTIFY: " + "\"" + data.tracks.items[0].name + "\"" + "\r\n";
 
             fs.appendFile('log.txt', spotify_append, function (err) {
                 if (err) throw err;
@@ -47,9 +49,9 @@ function spotify_this() {
 };
 
 //OMDB
-function movie_this() {
+function movie_this(user_movie) {
     Axios
-        .get("http://www.omdbapi.com/?t=" + user_input + "&apikey=dbac59f0")
+        .get("http://www.omdbapi.com/?t=" + user_movie + "&apikey=dbac59f0")
         .then(function (response) {
             console.log(response.data.Title);//   * Title of the movie.
             console.log(response.data.Year);//   * Year the movie came out.
@@ -69,8 +71,8 @@ function movie_this() {
 };
 
 //BANDS IN TOWN 
-function concert_this() {
-    Axios.get("https://rest.bandsintown.com/artists/" + user_input + "/events?app_id=codingbootcamp")
+function concert_this(user_concert) {
+    Axios.get("https://rest.bandsintown.com/artists/" + user_concert + "/events?app_id=codingbootcamp")
         .then(function (response) {
             console.log("Name of the artist: " + response.data[0].artist.name);
             console.log("Name of the venue: " + response.data[0].venue.name);
@@ -93,11 +95,13 @@ function do_what_it_says() {
 
         // If the code experiences any errors it will log the error to the console.
         if (error) {
-           return console.log(error);
+            return console.log(error);
         } else {
             console.log(data);
-        };   
-    });  
+        };
+        var dataArr = data.split(",");
+        console.log(dataArr);
+    });
 };
 
 

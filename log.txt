@@ -2,3 +2,4 @@ Appending song from SPOTIFY: Str8 Goon Soft Heart Tho
 Appending song from SPOTIFY: "Str8 Goon Soft Heart Tho"
 Appending song from SPOTIFY: "Sweet but Psycho"
 Appending Artist's name from BANDSINTOWN: MUNA
+Appending Movie from OMDb: Terminator

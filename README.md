@@ -24,7 +24,7 @@ https://github.com/EtienneWarneck/liri-node-app
 
 6. **_Clearly list the technologies used in the app_**
 
-node-spotify-api package, Axios npm, OMDb npm, bandsintown npm
+node.js, json, node-spotify-api package, Axios npm, OMDb npm, bandsintown npm
 
 
 7. **_State your role in the app development_**
