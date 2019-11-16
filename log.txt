@@ -1,7 +1,6 @@
-Appending song from SPOTIFY: "Everything Zen"
-Appending Movie from OMDb: Zen
+
+Appending song from SPOTIFY: "Highway to Hell"
+Appending Movie from OMDb: Hitchcock/Truffaut
 Appending Artist's name from BANDSINTOWN: ZeN
 Appending random.txt: spotify-this-song "I Want it That Way",
 Appending random.txt: spotify-this-song "I Want it That Way",
-Appending Movie from OMDb: Hitchcock/Truffaut
-Appending Movie from OMDb: Hitchcock/Truffaut
