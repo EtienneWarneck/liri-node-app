@@ -14,9 +14,11 @@ The fourth function reads information from a .txt file.
 
 3. **_Give start-to-finish instructions on how to run the app_**
 
-In the Command Line Interface write: node liri.js nameOfCase songName/movieName or /musicianName
+In the Command Line Interface write: node liri.js nameOfCase songName/movieName or /musicianName to retrieve the information.
 
 4. **_Include screenshots, gifs or videos of the app functioning_**
+
+
 
 5. **_Contain a link to a deployed version of the app_**
 
@@ -28,4 +30,6 @@ node.js, json, node-spotify-api package, Axios npm, OMDb npm, bandsintown npm
 
 
 7. **_State your role in the app development_**
+
+Following the instructions, I implemented the app, connecting the NPMs and appending them into a txt file.
 
