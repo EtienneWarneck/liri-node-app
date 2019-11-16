@@ -14,10 +14,9 @@ The fourth function reads information from a .txt file.
 
 3. **_Give start-to-finish instructions on how to run the app_**
 
-In the Command Line Interface write: node liri.js nameOfCase songName/movieName or /musicianName to retrieve the information.
+In the Command Line Interface write: < node liri.js nameOfCase songName/movieName or /musicianName > to retrieve the information.
 
 4. **_Include screenshots, gifs or videos of the app functioning_**
-
 
 
 5. **_Contain a link to a deployed version of the app_**
