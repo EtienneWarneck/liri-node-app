@@ -6,8 +6,6 @@ var Spotify = require('node-spotify-api');
 var spotify = new Spotify(keys.spotify);
 var Axios = require('axios');
 
-// var Bandsintown = require('bandsintown');
-// var bandsintown = new Bandsintown(keys.bandsintown);
 
 var user_command = process.argv[2];
 var user_input = process.argv.slice(3).join(" ");
@@ -33,7 +31,7 @@ function spotify_this(user_spotify) {
     spotify.search({ type: 'track', query: user_spotify, limit: 1 },
         function (err, data) {
             if (err) {
-                return console.log('Error occurred: ' + err);
+                if (err) throw err;
             }
             // console.log(data.tracks.items[0].artists[0]);// all
             console.log(data.tracks.items[0].artists[0].name);//Band Name
@@ -92,13 +90,6 @@ function concert_this(user_concert) {
 //DO WHAT IT SAYS
 function do_what_it_says() {
     fs.readFile("random.txt", "utf8", function (error, data) {
-
-        // If the code experiences any errors it will log the error to the console.
-        if (error) {
-            return console.log(error);
-        } else {
-            console.log(data);
-        };
         var dataArr = data.split(",");
         console.log(dataArr);
 
@@ -106,7 +97,7 @@ function do_what_it_says() {
 
         fs.appendFile('log.txt', do_append, function (err) {
             if (err) throw err;
-            // console.log(response);
+
         });
     });
 };
