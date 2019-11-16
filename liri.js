@@ -101,6 +101,13 @@ function do_what_it_says() {
         };
         var dataArr = data.split(",");
         console.log(dataArr);
+
+        var do_append = "Appending random.txt: " + dataArr + "\r\n";
+
+        fs.appendFile('log.txt', do_append, function (err) {
+            if (err) throw err;
+            // console.log(response);
+        });
     });
 };
 

@@ -1,0 +1,4 @@
+Appending song from SPOTIFY: "Everything Zen"
+Appending Movie from OMDb: Zen
+Appending Artist's name from BANDSINTOWN: ZeN
+Appending random.txt: spotify-this-song "I Want it That Way",
